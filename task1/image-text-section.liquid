@@ -1,0 +1,76 @@
+<!-- image-text-section.liquid -->
+
+<style>
+    .image-text {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .image-text__image img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .image-text__text {
+        max-width: 500px;
+        margin-left: 20px;
+    }
+
+    @media (max-width: 375px) {
+        .image-text {
+            flex-direction: column;
+            text-align: center;
+        }
+        .image-text__text {
+            margin-left: 0;
+        }
+    }
+</style>
+
+<section class="image-text-section">
+  <div class="image-text">
+    {% if section.settings.image != blank %}
+      <div class="image-text__image">
+        <img src="{{ section.settings.image | img_url: 'large' }}" alt="section image">
+      </div>
+    {% endif %}
+    
+    <div class="image-text__text">
+      <h2>{{ section.settings.title }}</h2>
+      <p>{{ section.settings.description }}</p>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Image and Text Section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Choose an image"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title Text",
+      "default": "Default Title"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Some default description text for this section."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image + Text",
+      "category": "Custom Sections"
+    }
+  ]
+}
+{% endschema %}
